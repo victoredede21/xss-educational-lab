@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { useNavigate } from "wouter";
+import { useLocation } from "wouter";
 
 interface HookedBrowsersTableProps {
   browsers: HookedBrowser[];
@@ -16,7 +16,7 @@ interface HookedBrowsersTableProps {
 const HookedBrowsersTable = ({ browsers, isLoading, limit }: HookedBrowsersTableProps) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
-  const [, navigate] = useNavigate();
+  const [, navigate] = useLocation();
   const [expandedBrowserId, setExpandedBrowserId] = useState<number | null>(null);
   
   const limitedBrowsers = limit ? browsers.slice(0, limit) : browsers;
@@ -84,7 +84,7 @@ const HookedBrowsersTable = ({ browsers, isLoading, limit }: HookedBrowsersTable
     if (browser.isOnline) return "Active";
     
     // Check if lastSeen is within 5 minutes
-    const lastSeen = new Date(browser.lastSeen);
+    const lastSeen = browser.lastSeen ? new Date(browser.lastSeen) : new Date();
     const fiveMinutesAgo = new Date();
     fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
     
@@ -189,10 +189,10 @@ const HookedBrowsersTable = ({ browsers, isLoading, limit }: HookedBrowsersTable
                         </div>
                         <div>
                           <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200">First Seen:</p>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-300">{formatDate(browser.firstSeen)}</p>
+                          <p className="text-sm text-neutral-600 dark:text-neutral-300">{browser.firstSeen ? formatDate(browser.firstSeen) : 'N/A'}</p>
                           
                           <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200 mt-2">Last Seen:</p>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-300">{formatDate(browser.lastSeen)}</p>
+                          <p className="text-sm text-neutral-600 dark:text-neutral-300">{browser.lastSeen ? formatDate(browser.lastSeen) : 'N/A'}</p>
                           
                           <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200 mt-2">Session ID:</p>
                           <p className="text-sm text-neutral-600 dark:text-neutral-300 font-mono">{browser.sessionId}</p>

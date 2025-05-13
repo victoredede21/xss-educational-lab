@@ -10,9 +10,12 @@ export function useWebSocket(url: string) {
   const [lastMessage, setLastMessage] = useState<any>(null);
   
   useEffect(() => {
-    const ws = new WebSocket(url.replace(/^http/, 'ws'));
+    // Use the custom websocket path to avoid conflicts with Vite's WebSocket
+    const wsUrl = `${url.replace(/^http/, 'ws')}/ws/xss-lab`;
+    const ws = new WebSocket(wsUrl);
     
     ws.onopen = () => {
+      console.log('WebSocket connected');
       setIsConnected(true);
     };
     
