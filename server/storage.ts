@@ -1643,4 +1643,25 @@ self.addEventListener('activate', event => {
   }
 }
 
-export const storage = new MemStorage();
+import { DatabaseStorage } from "./database-storage";
+
+// Choose storage implementation based on environment
+let storageImplementation: IStorage;
+
+if (process.env.DATABASE_URL) {
+  console.log("Using database storage");
+  storageImplementation = new DatabaseStorage();
+  // Initialize default command modules
+  (async () => {
+    try {
+      await (storageImplementation as DatabaseStorage).initializeDefaultCommandModules();
+    } catch (error) {
+      console.error("Failed to initialize default command modules:", error);
+    }
+  })();
+} else {
+  console.log("Using in-memory storage (development mode)");
+  storageImplementation = new MemStorage();
+}
+
+export const storage = storageImplementation;
