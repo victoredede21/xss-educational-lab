@@ -28,10 +28,29 @@ To create the database schema, run:
 tsx scripts/push-schema.ts
 ```
 
+## GitHub Setup
+
+1. Create a new repository on GitHub
+2. Initialize the local repository:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   ```
+3. Add your GitHub repository as a remote:
+   ```bash
+   git remote add origin https://github.com/yourusername/xss-educational-lab.git
+   ```
+4. Push the code to GitHub:
+   ```bash
+   git branch -M main
+   git push -u origin main
+   ```
+
 ## Deployment on Render
 
 1. Create a new Web Service on Render
-2. Connect your repository
+2. Connect your GitHub repository
 3. Configure the following settings:
    - **Environment**: Node
    - **Build Command**: `./render-build.sh`
