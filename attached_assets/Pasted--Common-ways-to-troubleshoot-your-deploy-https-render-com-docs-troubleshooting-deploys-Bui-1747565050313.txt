@@ -1,0 +1,37 @@
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+==> Build failed 😞
+Error: Build failed, dist/index.js not created
+sh: 1: vite: not found
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+> rest-express@1.0.0 build
+Building application...
+Node.js v22.14.0
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at addChunk (node:internal/streams/readable:561:12)
+    at Socket.emit (node:events:518:28)
+    at Socket.readFromStdout (/opt/render/.cache/_npx/fd45a72a545557e9/node_modules/esbuild/lib/main.js:579:7)
+    at handleIncomingPacket (/opt/render/.cache/_npx/fd45a72a545557e9/node_modules/esbuild/lib/main.js:656:12)
+    at responseCallbacks.<computed> (/opt/render/.cache/_npx/fd45a72a545557e9/node_modules/esbuild/lib/main.js:601:9)
+    at /opt/render/.cache/_npx/fd45a72a545557e9/node_modules/esbuild/lib/main.js:734:50
+    at failureErrorWithLog (/opt/render/.cache/_npx/fd45a72a545557e9/node_modules/esbuild/lib/main.js:1463:15)
+/opt/render/project/src/scripts/push-schema.ts:486:38: ERROR: Expected "}" but found "{"
+Error [TransformError]: Transform failed with 1 error:
+    ^
+    triggerUncaughtException(
+node:internal/modules/run_main:122
+Setting up database schema...
+added 5 packages in 2s
+found 0 vulnerabilities
+  run `npm fund` for details
+57 packages are looking for funding
+added 392 packages, and audited 393 packages in 7s
+==> Running build command './render-build.sh'...
+==> Docs on specifying a bun version: https://render.com/docs/bun-version
+==> Using Bun version 1.1.0 (default)
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Using Node.js version 22.14.0 (default)
+==> Checking out commit 14f5c45252c8c4828b10bc307323b15445a0064d in branch main
+==> Cloning from https://github.com/victoredede21/xss-educational-lab
+==> It looks like we don't have access to your repo, but we'll try to clone it anyway.
