@@ -1,0 +1,79 @@
+Search
+Node.js v22.14.0
+}
+  requireStack: []
+  code: 'MODULE_NOT_FOUND',
+    at node:internal/main/run_main_module:36:49 {
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at Function._load (node:internal/modules/cjs/loader:1055:27)
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1225:15)
+Error: Cannot find module '/opt/render/project/src/dist/index.js'
+  ^
+  throw err;
+node:internal/modules/cjs/loader:1228
+> NODE_ENV=production node dist/index.js
+> rest-express@1.0.0 start
+==> Running 'npm start'
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+==> Exited with status 1
+Node.js v22.14.0
+}
+  requireStack: []
+  code: 'MODULE_NOT_FOUND',
+    at node:internal/main/run_main_module:36:49 {
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at Function._load (node:internal/modules/cjs/loader:1055:27)
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1225:15)
+Error: Cannot find module '/opt/render/project/src/dist/index.js'
+  ^
+  throw err;
+node:internal/modules/cjs/loader:1228
+> NODE_ENV=production node dist/index.js
+> rest-express@1.0.0 start
+==> Running 'npm start'
+==> Deploying...
+==> Build successful 🎉
+==> Uploaded in 4.7s. Compression took 2.8s
+==> Uploading build...
+Build completed successfully!
+sh: 1: vite: not found
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+> rest-express@1.0.0 build
+Building application...
+Node.js v22.14.0
+}
+  requireStack: [ 'internal/preload' ]
+  code: 'MODULE_NOT_FOUND',
+    at prepareMainThreadExecution (node:internal/process/pre_execution:54:10) {
+    at prepareExecution (node:internal/process/pre_execution:159:5)
+    at setupUserModules (node:internal/process/pre_execution:206:5)
+    at loadPreloadModules (node:internal/process/pre_execution:734:5)
+    at node:internal/modules/cjs/loader:1856:12
+    at Module.require (node:internal/modules/cjs/loader:1311:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at Function._load (node:internal/modules/cjs/loader:1055:27)
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1225:15)
+- internal/preload
+Require stack:
+Error: Cannot find module 'esbuild-register'
+  ^
+  throw err;
+node:internal/modules/cjs/loader:1228
+Setting up database schema...
+found 0 vulnerabilities
+  run `npm fund` for details
+57 packages are looking for funding
+added 392 packages, and audited 393 packages in 10s
+==> Running build command './render-build.sh'...
+==> Docs on specifying a bun version: https://render.com/docs/bun-version
+==> Using Bun version 1.1.0 (default)
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Using Node.js version 22.14.0 (default)
+==> Checking out commit 21c8c6902d26da1d82f6ee38ef50db25e0b8480b in branch main
+==> Cloning from https://github.com/victoredede21/xss-educational-lab
+==> It looks like we don't have access to your repo, but we'll try to clone it anyway.
